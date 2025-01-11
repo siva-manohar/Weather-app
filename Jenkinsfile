@@ -1,7 +1,7 @@
 pipeline {
-    agents any
+    agent any
     stages {
-        stage ("build") {
+        stage ('build') {
             steps {
                 sh '''
                 whoami
@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage ("deploy") {
+        stage ('deploy') {
             steps {
                 sh '''
                 sed "s/xyz/${BUILD_NUMBER}/g" deployment.yaml > deployment-new.yaml
