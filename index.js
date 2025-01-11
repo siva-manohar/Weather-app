@@ -1,33 +1,14 @@
-// Replace 'YOUR_API_KEY' with your OpenWeatherMap API key
-const apiKey = "YOUR_API_KEY";
+var http = require('http')
 
-function getWeather() {
-    const city = document.getElementById("city").value;
+var port = 3000
 
-    if (city === "") {
-        alert("Please enter a city name.");
-        return;
-    }
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'})
+  response.end('Hello World\n')
+})
 
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+server.listen(port)
 
-    fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.cod === "404") {
-                alert("City not found. Please enter a valid city name.");
-                return;
-            }
+console.log('Server running at http://localhost:' + port)
 
-            const weatherInfo = document.getElementById("weather-info");
-            weatherInfo.innerHTML = `
-<h3>${data.name}, ${data.sys.country}</h3>
-<p>Temperature: ${data.main.temp} °C</p>
-<p>Weather: ${data.weather[0].description}</p>
-`;
-        })
-        .catch((error) => {
-            console.error("Error fetching weather data:", error);
-            alert("Error fetching weather data. Please try again later.");
-        });
-}
+console.log('application is running successfully')
